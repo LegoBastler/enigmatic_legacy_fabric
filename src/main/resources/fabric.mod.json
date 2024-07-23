@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "enigmatic_legacy_fabric",
+	"version": "${version}",
+	"name": "enigmatic_legacy_fabric",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/enigmatic_legacy_fabric/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.waka_coco_lego.Enigmatic_legacy_fabric"
+		],
+		"client": [
+			"com.waka_coco_lego.Enigmatic_legacy_fabricClient"
+		],
+		"fabric-datagen": [
+			"com.waka_coco_lego.Enigmatic_legacy_fabricDataGenerator"
+		]
+	},
+	"mixins": [
+		"enigmatic_legacy_fabric.mixins.json",
+		{
+			"config": "enigmatic_legacy_fabric.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

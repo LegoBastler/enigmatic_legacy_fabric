@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.waka_coco_lego.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ExampleClientMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
