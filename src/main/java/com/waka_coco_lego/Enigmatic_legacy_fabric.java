@@ -11,6 +11,8 @@ public class Enigmatic_legacy_fabric implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger("enigmatic_legacy_fabric");
 
+	//THIS IS A TEST MESSAGE
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
