@@ -3,6 +3,10 @@
     "player"
   ],
   "slots": [
-    "feet/aglet"
+    "chest/back",
+    "chest/charm",
+    "hand/ring",
+    "legs/scrolls",
+    "offhand/spellstone"
   ]
 }
