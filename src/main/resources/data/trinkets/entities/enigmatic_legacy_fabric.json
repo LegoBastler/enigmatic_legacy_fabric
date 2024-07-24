@@ -3,6 +3,7 @@
     "player"
   ],
   "slots": [
+    "head/necklace",
     "chest/back",
     "chest/charm",
     "hand/ring",
