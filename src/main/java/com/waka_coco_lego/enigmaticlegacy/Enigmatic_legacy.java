@@ -1,4 +1,4 @@
-package com.waka_coco_lego;
+package com.waka_coco_lego.enigmaticlegacy;
 
 import net.fabricmc.api.ModInitializer;
 
@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Enigmatic_legacy implements ModInitializer {
+	public static final String MODID ="enigmatic_legacy_fabric";
+	public static final String NAME = "Enigmatic Legacy";
+
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.

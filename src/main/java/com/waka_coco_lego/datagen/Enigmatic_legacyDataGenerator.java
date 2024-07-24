@@ -1,4 +1,4 @@
-package com.waka_coco_lego;
+package com.waka_coco_lego.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
