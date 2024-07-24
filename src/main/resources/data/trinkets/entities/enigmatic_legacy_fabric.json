@@ -6,8 +6,9 @@
     "head/necklace",
     "chest/back",
     "chest/charm",
-    "hand/ring",
     "legs/scrolls",
+    "offhand/ring",
+    "offhand/ring",
     "offhand/spellstone"
   ]
 }
