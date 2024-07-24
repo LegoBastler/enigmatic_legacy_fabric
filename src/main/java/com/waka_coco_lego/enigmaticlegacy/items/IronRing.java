@@ -23,9 +23,9 @@ public class IronRing extends TrinketItem {
 
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
         var modifiers = super.getModifiers(stack, slot, entity, uuid);
-        // +10% movement speed
-        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED.value(), new EntityAttributeModifier(Identifier.tryParse(MODID + ":movement_speed"), 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        // If the player has access to ring slots, this will give them an extra one
+
+        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED.value(), new EntityAttributeModifier(Identifier.tryParse(MODID + "Armor bonus"), 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+
         SlotAttributes.addSlotModifier(modifiers, "hand/ring", uuid, 1, EntityAttributeModifier.Operation.ADD_VALUE);
         return modifiers;
     }
