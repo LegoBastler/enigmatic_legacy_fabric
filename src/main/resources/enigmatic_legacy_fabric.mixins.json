@@ -3,7 +3,7 @@
 	"package": "com.waka_coco_lego.enigmaticlegacy.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-
+		"ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
