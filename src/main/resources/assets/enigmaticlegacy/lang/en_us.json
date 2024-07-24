@@ -226,10 +226,9 @@
 	"enchantment.enigmaticlegacy.wrath.desc": "Increased damage against everything.",
 	"enchantment.enigmaticlegacy.slayer.desc": "Increased damage against monsters.",
 
-	"curios.identifier.scroll": "Arcane Scroll",
-	"curios.identifier.spellstone": "Spellstone",
-	"curios.identifier.ring": "Ring",
-	"curios.identifier.charm": "Charm",
+	"trinkets.slot.legs.scroll": "Arcane Scroll",
+	"trinkets.slot.offhand.spellstone": "Spellstone",
+	"trinkets.slot.chest.charm": "Charm",
 	"curios.modifiers.spellstone": "When equipped as Spellstone:",
 	"curios.modifiers.scroll": "When equipped as Arcane Scroll:",
 	"tooltip.enigmaticlegacy.enabled": "§6Enabled",

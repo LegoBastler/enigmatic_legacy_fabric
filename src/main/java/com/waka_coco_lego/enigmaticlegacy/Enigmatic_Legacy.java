@@ -5,7 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Enigmatic_legacy implements ModInitializer {
+public class Enigmatic_Legacy implements ModInitializer {
 	public static final String MODID ="enigmatic_legacy_fabric";
 	public static final String NAME = "Enigmatic Legacy";
 
