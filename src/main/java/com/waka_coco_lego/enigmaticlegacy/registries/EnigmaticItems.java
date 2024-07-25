@@ -16,12 +16,13 @@ public class EnigmaticItems {
 
     public static final Item IRONRING = registerItem("iron_ring", new IronRing(new Item.Settings()));
 
-    public static final ItemGroup LEG_GROUP = Registry.register(Registries.ITEM_GROUP,
+    public static final ItemGroup ENIGMATICGROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.tryParse(MODID, "enigmatic_group"),
             FabricItemGroup.builder().displayName(Text.translatable("itemGroup.enigmaticCreativeTab"))
                     .icon(() -> new ItemStack(IRONRING)).entries((displayContext, entries) -> {
                         entries.add(IRONRING);
                     }).build());
+
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.tryParse(MODID, name), item);
