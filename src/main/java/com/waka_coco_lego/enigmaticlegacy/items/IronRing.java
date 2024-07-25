@@ -11,10 +11,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-import static com.waka_coco_lego.enigmaticlegacy.Enigmatic_Legacy.MODID;
+import static com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy.MODID;
 
 public class IronRing extends TrinketItem {
 
@@ -22,14 +23,14 @@ public class IronRing extends TrinketItem {
         super(settings);
     }
 
-    public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
+    public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, @NotNull UUID uuid) {
         Identifier uuidIdentifier = Identifier.tryParse(uuid.toString());
 
         var modifiers = super.getModifiers(stack, slot, entity, uuidIdentifier);
 
         modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(Identifier.tryParse(MODID + "Armor bonus"), 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
-        SlotAttributes.addSlotModifier(modifiers, "hand/ring", uuidIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
+        SlotAttributes.addSlotModifier(modifiers, "offhand/ring", uuidIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
         return modifiers;
     }
 }

@@ -18,10 +18,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.waka_coco_lego.enigmaticlegacy.Enigmatic_Legacy"
+			"com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy"
 		],
 		"client": [
-			"com.waka_coco_lego.enigmaticlegacy.Enigmatic_Legacy_Client"
+			"com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacyClient"
 		],
 		"fabric-datagen": [
 			"com.waka_coco_lego.datagen.Enigmatic_LegacyDataGenerator"
