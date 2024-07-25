@@ -14,7 +14,7 @@ import static com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy.*;
 
 public class EnigmaticItems {
 
-    public static final Item IRONRING = registerItem("iron_ring", new IronRing(new Item.Settings()));
+    public static final Item IRONRING = registerItem("iron_ring", new IronRing(new Item.Settings().maxCount(1)));
 
     public static final ItemGroup ENIGMATICGROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.tryParse(MODID, "enigmatic_group"),

@@ -10,7 +10,7 @@ public class EnigmaticLegacy implements ModInitializer {
 	public static final String MODID ="enigmaticlegacy";
 	public static final String NAME = "Enigmatic Legacy";
 
-	 public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
+	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
 	@Override
 	public void onInitialize() {
