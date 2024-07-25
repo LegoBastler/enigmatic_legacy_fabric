@@ -28,7 +28,7 @@ public class IronRing extends TrinketItem {
 
         var modifiers = super.getModifiers(stack, slot, entity, uuidIdentifier);
 
-        modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(Identifier.tryParse(MODID + "Armor bonus"), 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(Identifier.tryParse(MODID + ":Armor"), 1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
         SlotAttributes.addSlotModifier(modifiers, "offhand/ring", uuidIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
         return modifiers;
