@@ -1,7 +1,6 @@
 package com.waka_coco_lego.enigmaticlegacy.items;
 
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.entity.LivingEntity;
@@ -11,9 +10,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 import static com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy.MODID;
 
@@ -25,10 +21,7 @@ public class IronRing extends TrinketItem {
 
     public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, Identifier slotIdentifier) {
         var modifiers = super.getModifiers(stack, slot, entity, slotIdentifier);
-
-        modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(Identifier.tryParse(MODID + ":Armor"), 1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-
-        SlotAttributes.addSlotModifier(modifiers, "offhand/ring", slotIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
+        modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(Identifier.tryParse(MODID + ":Armor"), 1, EntityAttributeModifier.Operation.ADD_VALUE));
         return modifiers;
     }
 }
