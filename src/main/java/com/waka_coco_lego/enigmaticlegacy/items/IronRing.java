@@ -23,14 +23,12 @@ public class IronRing extends TrinketItem {
         super(settings);
     }
 
-    public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, @NotNull UUID uuid) {
-        Identifier uuidIdentifier = Identifier.tryParse(uuid.toString());
-
-        var modifiers = super.getModifiers(stack, slot, entity, uuidIdentifier);
+    public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, Identifier slotIdentifier) {
+        var modifiers = super.getModifiers(stack, slot, entity, slotIdentifier);
 
         modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(Identifier.tryParse(MODID + ":Armor"), 1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
-        SlotAttributes.addSlotModifier(modifiers, "offhand/ring", uuidIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
+        SlotAttributes.addSlotModifier(modifiers, "offhand/ring", slotIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
         return modifiers;
     }
 }
