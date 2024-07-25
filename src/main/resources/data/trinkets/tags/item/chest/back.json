@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:elytra",
-    "enigmaticlegacy:enigmatic_elytra"
+    "minecraft:elytra"
   ]
 }

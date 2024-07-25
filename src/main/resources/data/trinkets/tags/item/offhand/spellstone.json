@@ -1,13 +1,6 @@
 {
   "replace": false,
   "values": [
-    "enigmaticlegacy:enigmatic_item",
-    "enigmaticlegacy:golem_heart",
-    "enigmaticlegacy:eye_of_nebula",
-    "enigmaticlegacy:blazing_core",
-    "enigmaticlegacy:void_pearl",
-    "enigmaticlegacy:ocean_stone",
-    "enigmaticlegacy:angel_blessing",
-    "enigmaticlegacy:the_cube"
+
   ]
 }
