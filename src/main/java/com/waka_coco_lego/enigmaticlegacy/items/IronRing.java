@@ -21,7 +21,7 @@ public class IronRing extends TrinketItem {
 
     public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, Identifier slotIdentifier) {
         var modifiers = super.getModifiers(stack, slot, entity, slotIdentifier);
-        modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(Identifier.tryParse(MODID + ":Armor"), 1, EntityAttributeModifier.Operation.ADD_VALUE));
+        modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(slotIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE));
         return modifiers;
     }
 }
