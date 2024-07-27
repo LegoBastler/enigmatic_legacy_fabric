@@ -10,11 +10,17 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy.*;
 
 public class EnigmaticItems {
+    public static final List<Item> SPELLSTONES = new ArrayList<>();
 
     public static final Item IRONRING = registerItem("iron_ring", new IronRing(new Item.Settings().maxCount(1)));
+    public static final Item MAGNET_RING = registerItem("magnet_ring", new MagnetRing(new Item.Settings().maxCount(1)));
+    public static final Item SUPER_MAGNET_RING = registerItem("super_magnet_ring", new SuperMagnetRing(new Item.Settings().maxCount(1)));
 
     public static final ItemGroup ENIGMATICGROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.tryParse(MODID, "enigmatic_group"),

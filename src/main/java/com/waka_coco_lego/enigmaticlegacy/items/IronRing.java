@@ -14,7 +14,6 @@ import net.minecraft.util.Identifier;
 import static com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy.MODID;
 
 public class IronRing extends TrinketItem {
-
     public IronRing(Settings settings) {
         super(settings);
     }
