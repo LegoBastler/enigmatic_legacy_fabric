@@ -1,11 +1,8 @@
 package com.waka_coco_lego.enigmaticlegacy;
 
-import com.waka_coco_lego.enigmaticlegacy.proxy.ClientProxy;
-import com.waka_coco_lego.enigmaticlegacy.proxy.CommonProxy;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.network.PacketByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +11,6 @@ public class EnigmaticLegacy implements ModInitializer {
 	public static final String NAME = "Enigmatic Legacy";
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
-	public static final CommonProxy PROXY = new ClientProxy();
 
 	@Override
 	public void onInitialize() {

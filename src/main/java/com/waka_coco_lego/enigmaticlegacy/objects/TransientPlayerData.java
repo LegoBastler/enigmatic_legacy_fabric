@@ -4,58 +4,55 @@ import java.lang.ref.WeakReference;
 import java.util.UUID;
 
 import com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy;
-import com.waka_coco_lego.enigmaticlegacy.helpers.SuperpositionHandler;
 import com.waka_coco_lego.enigmaticlegacy.items.MagnetRing;
 
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 
 public class TransientPlayerData {
 
     // TODO Wrap variables into param objects
 
-    public static TransientPlayerData get(PlayerEntity player) {
-        boolean clientOnly = player.getWorld().isClient();
+    // public static TransientPlayerData get(PlayerEntity player) {
+    //     boolean clientOnly = player.getWorld().isClient();
+    //
+    //     if (EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).containsKey(player))
+    //         return EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).get(player);
+    //     else {
+    //         TransientPlayerData data = new TransientPlayerData(player);
+    //         EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).put(player, data);
+    //
+    //         return data;
+    //     }
+    // }
 
-        if (EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).containsKey(player))
-            return EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).get(player);
-        else {
-            TransientPlayerData data = new TransientPlayerData(player);
-            EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).put(player, data);
+    // public static boolean set(PlayerEntity player, TransientPlayerData data) {
+    //     boolean clientOnly = player.getWorld().isClient();
+    //
+    //     if (data != null) {
+    //         EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).put(player, data);
+    //         return true;
+    //     } else
+    //         return false;
+    // }
 
-            return data;
-        }
-    }
-
-    public static boolean set(PlayerEntity player, TransientPlayerData data) {
-        boolean clientOnly = player.getWorld().isClient();
-
-        if (data != null) {
-            EnigmaticLegacy.PROXY.getTransientPlayerData(clientOnly).put(player, data);
-            return true;
-        } else
-            return false;
-    }
-
-    // TODO try to understand how this networking bs works and translate it
     // public void syncToClients(float blockRadius) {
     //     PlayerEntity player = this.getPlayer();
     //     EnigmaticLegacy.packetInstance.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(player.getX(), player.getY(), player.getZ(), blockRadius, player.level().dimension())), new PacketSyncTransientData(this));
     // }
-//
+    //
     // public void syncToAllClients() {
     //     EnigmaticLegacy.packetInstance.send(PacketDistributor.ALL.noArg(), new PacketSyncTransientData(this));
     // }
-//
+    //
     // public void syncToPlayer() {
     //     if (this.getPlayer() instanceof ServerPlayerEntity) {
     //         EnigmaticLegacy.packetInstance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) this.getPlayer()), new PacketSyncTransientData(this));
     //     }
     // }
-//
+    //
     // public void syncToPlayer(ServerPlayerEntity player) {
     //     if (this.getPlayer() instanceof ServerPlayerEntity) {
     //         EnigmaticLegacy.packetInstance.send(PacketDistributor.PLAYER.with(() -> player), new PacketSyncTransientData(this));
@@ -158,14 +155,14 @@ public class TransientPlayerData {
     //     SuperpositionHandler.setPersistentBoolean(this.player.get(), ForbiddenFruit.consumedFruitTag, consumedForbiddenFruit);
     // }
 
-    public Boolean getDisabledMagnetRingEffects() {
-        return this.disabledMagnetEffects != null ? this.disabledMagnetEffects : (this.disabledMagnetEffects = SuperpositionHandler.getPersistentBoolean(this.player.get(), MagnetRing.disabledMagnetTag, false));
-    }
+    // public Boolean getDisabledMagnetRingEffects() {
+    //     return this.disabledMagnetEffects != null ? this.disabledMagnetEffects : (this.disabledMagnetEffects = SuperpositionHandler.getPersistentBoolean(this.player.get(), MagnetRing.disabledMagnetTag, false));
+    // }
 
-    public void setDisabledMagnetRingEffects(Boolean disabledMagnetEffects) {
-        this.disabledMagnetEffects = disabledMagnetEffects;
-        SuperpositionHandler.setPersistentBoolean(this.player.get(), MagnetRing.disabledMagnetTag, disabledMagnetEffects);
-    }
+    // public void setDisabledMagnetRingEffects(Boolean disabledMagnetEffects) {
+    //     this.disabledMagnetEffects = disabledMagnetEffects;
+    //     SuperpositionHandler.setPersistentBoolean(this.player.get(), MagnetRing.disabledMagnetTag, disabledMagnetEffects);
+    // }
 
     public boolean isElytraBoosting() {
         return this.elytraBoosting;
@@ -175,14 +172,14 @@ public class TransientPlayerData {
         this.elytraBoosting = elytraBoosting;
     }
 
-    public Boolean getUnlockedNarrator() {
-        return this.unlockedNarrator != null ? this.unlockedNarrator : (this.unlockedNarrator = SuperpositionHandler.getPersistentBoolean(this.player.get(), "ELUnlockedNarrator", false));
-    }
+    // public Boolean getUnlockedNarrator() {
+    //     return this.unlockedNarrator != null ? this.unlockedNarrator : (this.unlockedNarrator = SuperpositionHandler.getPersistentBoolean(this.player.get(), "ELUnlockedNarrator", false));
+    // }
 
-    public void setUnlockedNarrator(Boolean unlockedNarrator) {
-        this.unlockedNarrator = unlockedNarrator;
-        SuperpositionHandler.setPersistentBoolean(this.player.get(), "ELUnlockedNarrator", unlockedNarrator);
-    }
+    // public void setUnlockedNarrator(Boolean unlockedNarrator) {
+    //     this.unlockedNarrator = unlockedNarrator;
+    //     SuperpositionHandler.setPersistentBoolean(this.player.get(), "ELUnlockedNarrator", unlockedNarrator);
+    // }
 
     public boolean hasEyeOfNebulaPower() {
         return this.hasEyeOfNebulaPower;
@@ -196,49 +193,49 @@ public class TransientPlayerData {
         return this.player.get();
     }
 
-    public static PacketByteBuf encode(TransientPlayerData data, PacketByteBuf buf) {
-        buf.writeUuid(data.player.get().getUuid());
-        buf.writeInt(data.spellstoneCooldown);
-        buf.writeInt(data.fireImmunityTimer);
-        buf.writeInt(data.fireImmunityTimerCap);
-        buf.writeInt(data.fireImmunityTimerLast);
-        // buf.writeBoolean(data.getConsumedForbiddenFruit());
-        buf.writeBoolean(data.getDisabledMagnetRingEffects());
-        buf.writeBoolean(data.getUnlockedNarrator());
-        buf.writeBoolean(data.isElytraBoosting());
+    // public static PacketByteBuf encode(TransientPlayerData data, PacketByteBuf buf) {
+    //     buf.writeUuid(data.player.get().getUuid());
+    //     buf.writeInt(data.spellstoneCooldown);
+    //     buf.writeInt(data.fireImmunityTimer);
+    //     buf.writeInt(data.fireImmunityTimerCap);
+    //     buf.writeInt(data.fireImmunityTimerLast);
+    //     // buf.writeBoolean(data.getConsumedForbiddenFruit());
+    //     buf.writeBoolean(data.getDisabledMagnetRingEffects());
+    //     buf.writeBoolean(data.getUnlockedNarrator());
+    //     buf.writeBoolean(data.isElytraBoosting());
+    //
+    //     return buf;
+    // }
 
-        return buf;
-    }
-
-    public static TransientPlayerData decode(PacketByteBuf buf) {
-        UUID playerID = buf.readUuid();
-        int spellstoneCooldown = buf.readInt();
-        int fireImmunityTimer = buf.readInt();
-        int fireImmunityTimerCap = buf.readInt();
-        int fireImmunityTimerLast = buf.readInt();
-        boolean consumedForbiddenFruit = buf.readBoolean();
-        boolean disabledMagnetEffects = buf.readBoolean();
-        boolean unlockedNarrator = buf.readBoolean();
-        boolean elytraBoosting = buf.readBoolean();
-
-        PlayerEntity player = EnigmaticLegacy.PROXY.getPlayer(playerID);
-
-        if (player != null) {
-            TransientPlayerData data = new TransientPlayerData(player);
-            data.spellstoneCooldown = spellstoneCooldown;
-            data.fireImmunityTimer = fireImmunityTimer;
-            data.fireImmunityTimerCap = fireImmunityTimerCap;
-            data.fireImmunityTimerLast = fireImmunityTimerLast;
-            data.consumedForbiddenFruit = consumedForbiddenFruit;
-            data.disabledMagnetEffects = disabledMagnetEffects;
-            data.unlockedNarrator = unlockedNarrator;
-            data.elytraBoosting = elytraBoosting;
-
-            return data;
-        }
-
-        return null;
-    }
+    // public static TransientPlayerData decode(PacketByteBuf buf) {
+    //     UUID playerID = buf.readUuid();
+    //     int spellstoneCooldown = buf.readInt();
+    //     int fireImmunityTimer = buf.readInt();
+    //     int fireImmunityTimerCap = buf.readInt();
+    //     int fireImmunityTimerLast = buf.readInt();
+    //     boolean consumedForbiddenFruit = buf.readBoolean();
+    //     boolean disabledMagnetEffects = buf.readBoolean();
+    //     boolean unlockedNarrator = buf.readBoolean();
+    //     boolean elytraBoosting = buf.readBoolean();
+    //
+    //     PlayerEntity player = EnigmaticLegacy.PROXY.getPlayer(playerID);
+    //
+    //     if (player != null) {
+    //         TransientPlayerData data = new TransientPlayerData(player);
+    //         data.spellstoneCooldown = spellstoneCooldown;
+    //         data.fireImmunityTimer = fireImmunityTimer;
+    //         data.fireImmunityTimerCap = fireImmunityTimerCap;
+    //         data.fireImmunityTimerLast = fireImmunityTimerLast;
+    //         data.consumedForbiddenFruit = consumedForbiddenFruit;
+    //         data.disabledMagnetEffects = disabledMagnetEffects;
+    //         data.unlockedNarrator = unlockedNarrator;
+    //         data.elytraBoosting = elytraBoosting;
+    //
+    //         return data;
+    //     }
+    //
+    //     return null;
+    // }
 
 }
 

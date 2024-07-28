@@ -32,6 +32,8 @@ import com.google.common.collect.ImmutableSet;
 
 import com.waka_coco_lego.enigmaticlegacy.EnigmaticLegacy;
 import com.waka_coco_lego.other.FileWatcher;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.Nullable;
 
 import static com.waka_coco_lego.omniconfig.Property.Type.*;
@@ -65,26 +67,6 @@ public class Configuration {
         DISMISSIVE;
     }
 
-    public enum SidedConfigType {
-        CLIENT,
-        SERVER,
-        COMMON;
-
-        public boolean isSided() {
-            return this != COMMON;
-        }
-
-        @Nullable
-        public Dist getDist() {
-            if (this == CLIENT)
-                return Dist.CLIENT;
-            else if (this == SERVER)
-                return Dist.DEDICATED_SERVER;
-            else
-                return null;
-        }
-    }
-
     public static final String CATEGORY_GENERAL = "general";
     public static final String ALLOWED_CHARS = "._-";
     public static final String DEFAULT_ENCODING = "UTF-8";
@@ -113,7 +95,6 @@ public class Configuration {
     private String definedConfigVersion = null;
     private String loadedConfigVersion = null;
     private Consumer<Configuration> overloadingAction = null;
-    private SidedConfigType sidedType = SidedConfigType.COMMON;
     private VersioningPolicy versioningPolicy = VersioningPolicy.DISMISSIVE;
     private boolean firstLoadPassed = false;
     private boolean terminateNonInvokedKeys = false;
@@ -141,7 +122,7 @@ public class Configuration {
         this.file = file;
         this.definedConfigVersion = configVersion;
 
-        String basePath = (FMLPaths.GAMEDIR.get().toFile()).getAbsolutePath().replace(File.separatorChar, '/').replace("/.", "");
+        String basePath = (FabricLoader.getInstance().getConfigDir().toFile()).getAbsolutePath().replace(File.separatorChar, '/').replace("/.", "");
         String path = file.getAbsolutePath().replace(File.separatorChar, '/').replace("/./", "/").replace(basePath, "");
         if (PARENT != null) {
             PARENT.setChild(path, this);
@@ -172,22 +153,10 @@ public class Configuration {
 
     private String getSynchronizedComment() {
         String comment = "";
-
-        if (!this.sidedType.isSided()) {
-            comment =  ", synchronized: " + this.pullSynchronized();
-        }
+        comment =  ", synchronized: " + this.pullSynchronized();
 
         return comment;
     }
-
-    public SidedConfigType getSidedType() {
-        return this.sidedType;
-    }
-
-    public void setSidedType(SidedConfigType sidedType) {
-        this.sidedType = sidedType;
-    }
-
     public void setVersioningPolicy(VersioningPolicy versioningPolicy) {
         this.versioningPolicy = versioningPolicy;
     }
@@ -1058,58 +1027,40 @@ public class Configuration {
         this.resetChangedState();
     }
 
-    public synchronized void load() {
-        this.executeSided(() -> {
-            this.isOverloading = true;
+    // public synchronized void load() {
+    //     this.executeSided(() -> {
+    //         this.isOverloading = true;
+    //
+    //         /*
+    //          * Force thread to wait a little before actually processing file, because saving
+    //          * it takes measurable time and ConfigBeholder may have triggered in the middle
+    //          * of process of writing file to disk, possibly causing invalid reading results
+    //          * if we hurry around too much with it.
+    //          */
+    //
+    //         LockSupport.parkNanos(10000);
+    //
+    //         try {
+    //             this.loadFile();
+    //         } catch (Throwable e) {
+    //             File fileBak = new File(this.file.getAbsolutePath() + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".errored");
+    //             EnigmaticLegacy.LOGGER.error("An exception occurred while loading config file " + this.file.getName() + ". This file will be renamed to " + fileBak.getName() +  " and a new config file will be generated.");
+    //             e.printStackTrace();
+    //
+    //             this.file.renameTo(fileBak);
+    //             this.loadFile();
+    //         }
+    //
+    //         // Just in case
+    //         if (this.associatedBeholder != null) {
+    //             this.associatedBeholder.lastCall = System.currentTimeMillis();
+    //         }
+    //
+    //         this.isOverloading = false;
+    //     });
+    // }
 
-            /*
-             * Force thread to wait a little before actually processing file, because saving
-             * it takes measurable time and ConfigBeholder may have triggered in the middle
-             * of process of writing file to disk, possibly causing invalid reading results
-             * if we hurry around too much with it.
-             */
 
-            LockSupport.parkNanos(10000);
-
-            try {
-                this.loadFile();
-            } catch (Throwable e) {
-                File fileBak = new File(this.file.getAbsolutePath() + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".errored");
-                EnigmaticLegacy.LOGGER.error("An exception occurred while loading config file " + this.file.getName() + ". This file will be renamed to " + fileBak.getName() +  " and a new config file will be generated.");
-                e.printStackTrace();
-
-                this.file.renameTo(fileBak);
-                this.loadFile();
-            }
-
-            // Just in case
-            if (this.associatedBeholder != null) {
-                this.associatedBeholder.lastCall = System.currentTimeMillis();
-            }
-
-            this.isOverloading = false;
-        });
-    }
-
-    public synchronized void save() {
-        this.executeSided(() -> {
-            this.isOverloading = true;
-
-            this.saveFile();
-
-            /*
-             * Convince the beholder that it was just used before ceasing
-             * the overloading status. Prevents it from instantly triggering
-             * on changes produced and saved in code and not manually by user.
-             */
-
-            if (this.associatedBeholder != null) {
-                this.associatedBeholder.lastCall = System.currentTimeMillis();
-            }
-
-            this.isOverloading = false;
-        });
-    }
 
     private void saveFile() {
 
@@ -1309,15 +1260,6 @@ public class Configuration {
             child.fileName = old.fileName;
             old.changed = true;
         }
-    }
-
-    public static void enableGlobalConfig() {
-        try {
-            PARENT = new Configuration(new File(FMLPaths.CONFIGDIR.get().toFile().getCanonicalFile(), "global.cfg"));
-        } catch (IOException e) {
-            throw new RuntimeException("Something broken", e);
-        }
-        PARENT.load();
     }
 
     public static class UnicodeInputStreamReader extends Reader {
@@ -1576,7 +1518,6 @@ public class Configuration {
      *
      * @param name Name of the property.
      * @param category Category of the property.
-     * @param defaultValue Default value of the property.
      * @param comment A brief description what the property does.
      * @return The value of the new string property.
      */
@@ -1729,36 +1670,13 @@ public class Configuration {
         return this.file;
     }
 
-    public void attachBeholder() {
-        this.executeSided(() -> {
-            try {
-                this.associatedBeholder = new ConfigBeholder(this, Thread.currentThread().getContextClassLoader());
-                FileWatcher.defaultInstance().addWatch(this.getConfigFile(), this.associatedBeholder);
-            } catch (IOException ex) {
-                throw new RuntimeException("Couldn't watch config file", ex);
-            }
-        });
-    }
-
-    public void detachBeholder() {
-        this.executeSided(() -> {
-            FileWatcher.defaultInstance().removeWatch(this.getConfigFile());
-        });
-    }
-
-    public void attachOverloadingAction(Consumer<Configuration> action) {
-        this.executeSided(() -> {
-            this.overloadingAction = action;
-        });
-    }
-
-    private void executeSided(Runnable run) {
-        if (this.sidedType.isSided()) {
-            DistExecutor.unsafeRunWhenOn(this.sidedType.getDist(), () -> { return run; });
-        } else {
-            run.run();
-        }
-    }
+    // private void executeSided(Runnable run) {
+    //     if (this.sidedType.isSided()) {
+    //         DistExecutor.unsafeRunWhenOn(this.sidedType.getEnvType(), () -> { return run; });
+    //     } else {
+    //         run.run();
+    //     }
+    // }
 
     /**
      * Can be used to prevent certain config properties from being loaded more

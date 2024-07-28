@@ -102,10 +102,10 @@ public class Omniconfig {
 
         @Override
         public BooleanParameter invoke(Configuration config) {
-            if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
-                config.pushSynchronized(this.isSynchornized);
-                this.value = config.getBoolean(this.name, this.category, this.defaultValue, this.comment);
-            }
+            // if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
+            //     config.pushSynchronized(this.isSynchornized);
+            //     this.value = config.getBoolean(this.name, this.category, this.defaultValue, this.comment);
+            // }
             return this;
         }
 
@@ -169,14 +169,14 @@ public class Omniconfig {
 
         @Override
         public StringParameter invoke(Configuration config) {
-            if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
-                config.pushSynchronized(this.isSynchornized);
-                if (this.validValues == null) {
-                    this.value = config.getString(this.name, this.category, this.defaultValue, this.comment);
-                } else {
-                    this.value = config.getString(this.name, this.category, this.defaultValue, this.comment, this.validValues);
-                }
-            }
+            // if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
+            //     config.pushSynchronized(this.isSynchornized);
+            //     if (this.validValues == null) {
+            //         this.value = config.getString(this.name, this.category, this.defaultValue, this.comment);
+            //     } else {
+            //         this.value = config.getString(this.name, this.category, this.defaultValue, this.comment, this.validValues);
+            //     }
+            // }
             return this;
         }
 
@@ -243,10 +243,10 @@ public class Omniconfig {
 
         @Override
         public IntParameter invoke(Configuration config) {
-            if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
-                config.pushSynchronized(this.isSynchornized);
-                this.value = config.getInt(this.name, this.category, this.defaultValue, this.minValue, this.maxValue, this.comment);
-            }
+            // if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
+            //     config.pushSynchronized(this.isSynchornized);
+            //     this.value = config.getInt(this.name, this.category, this.defaultValue, this.minValue, this.maxValue, this.comment);
+            // }
             return this;
         }
 
@@ -318,10 +318,10 @@ public class Omniconfig {
 
         @Override
         public DoubleParameter invoke(Configuration config) {
-            if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
-                config.pushSynchronized(this.isSynchornized);
-                this.value = config.getDouble(this.name, this.category, this.defaultValue, this.minValue, this.maxValue, this.comment);
-            }
+            // if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
+            //     config.pushSynchronized(this.isSynchornized);
+            //     this.value = config.getDouble(this.name, this.category, this.defaultValue, this.minValue, this.maxValue, this.comment);
+            // }
             return this;
         }
 
@@ -393,10 +393,10 @@ public class Omniconfig {
 
         @Override
         public PerhapsParameter invoke(Configuration config) {
-            if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
-                config.pushSynchronized(this.isSynchornized);
-                this.value = new Perhaps(config.getInt(this.name, this.category, this.defaultValue.asPercentage(), this.minValue, this.maxValue, this.comment));
-            }
+            // if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
+            //     config.pushSynchronized(this.isSynchornized);
+            //     this.value = new Perhaps(config.getInt(this.name, this.category, this.defaultValue.asPercentage(), this.minValue, this.maxValue, this.comment));
+            // }
             return this;
         }
 
@@ -467,10 +467,10 @@ public class Omniconfig {
         @Override
         public EnumParameter<T> invoke(Configuration config) {
             // <V extends Enum<V>> ForgeConfigSpec
-            if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
-                config.pushSynchronized(this.isSynchornized);
-                this.value = config.getEnum(this.name, this.category, this.defaultValue, this.comment, this.validValues);
-            }
+            // if (!this.isClientOnly() || config.getSidedType() == Configuration.SidedConfigType.CLIENT) {
+            //     config.pushSynchronized(this.isSynchornized);
+            //     this.value = config.getEnum(this.name, this.category, this.defaultValue, this.comment, this.validValues);
+            // }
             return this;
         }
 

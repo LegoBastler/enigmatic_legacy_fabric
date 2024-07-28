@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "enigmaticlegacy:iron_ring"
+    "enigmaticlegacy:iron_ring",
+    "enigmaticlegacy:magnet_ring",
+    "enigmaticlegacy:super_magnet_ring"
   ]
 }

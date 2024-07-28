@@ -1,7 +1,8 @@
 package com.waka_coco_lego.enigmaticlegacy.items;
 
+import com.waka_coco_lego.enigmaticlegacy.helpers.EntityHelper;
+import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
-import com.waka_coco_lego.enigmaticlegacy.helpers.SuperpositionHandler;
 import com.waka_coco_lego.enigmaticlegacy.objects.TransientPlayerData;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import com.waka_coco_lego.omniconfig.wrappers.Omniconfig;
@@ -16,42 +17,65 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3d;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class MagnetRing extends TrinketItem {
     public static final String disabledMagnetTag = "DisabledMagnetEffects";
-    public static Omniconfig.IntParameter range;
-    public static Omniconfig.BooleanParameter invertShift;
-    public static Omniconfig.BooleanParameter inventoryButtonEnabled;
-    public static Omniconfig.IntParameter buttonOffsetX;
-    public static Omniconfig.IntParameter buttonOffsetY;
-    public static Omniconfig.IntParameter buttonOffsetXCreative;
-    public static Omniconfig.IntParameter buttonOffsetYCreative;
+    public static int range = 8; // should be influenced by the config
+    public static boolean invertShift = false; // should be influenced by the config
 
     public MagnetRing(Settings settings) {
         super(settings);
     }
 
-    // public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> list, TooltipFlag flagIn) {
+    // @SubscribeConfig(receiveClient = true)
+    // public static void onConfig(OmniconfigWrapper builder) {
+    //     builder.pushPrefix("MagnetRing");
     //
-    //     ItemLoreHelper.addLocalizedString(list, "tooltip.enigmaticlegacy.void");
+    //     if (builder.config.getSidedType() != Configuration.SidedConfigType.CLIENT) {
+    //         range = builder.comment("The radius in which Magnetic Ring will attract items.")
+    //                 .min(1)
+    //                 .max(256)
+    //                 .getInt("Range", 8);
     //
-    //     if (Screen.hasShiftDown()) {
-    //         ItemLoreHelper.addLocalizedString(list, "tooltip.enigmaticlegacy.magnetRing1", ChatFormatting.GOLD, range.getValue());
-    //         ItemLoreHelper.addLocalizedString(list, invertShift.getValue() ? "tooltip.enigmaticlegacy.magnetRing2_alt" : "tooltip.enigmaticlegacy.magnetRing2");
+    //         invertShift = builder.comment("Inverts the Shift behaviour of Magnetic Ring and Dislocation Ring.")
+    //                 .getBoolean("InvertShift", false);
     //     } else {
-    //         ItemLoreHelper.addLocalizedString(list, "tooltip.enigmaticlegacy.holdShift");
+    //         inventoryButtonEnabled = builder
+    //                 .comment("Whether or not button for toggling magnet effects should be added to inventory GUI when player has Ring of Ender equipped.")
+    //                 .getBoolean("ButtonEnabled", true);
+    //
+    //         buttonOffsetX = builder
+    //                 .comment("Allows to set offset for Magnet Effects button on X axis.")
+    //                 .minMax(32768)
+    //                 .getInt("ButtonOffsetX", 0);
+    //
+    //         buttonOffsetY = builder
+    //                 .comment("Allows to set offset for Magnet Effects button on Y axis.")
+    //                 .minMax(32768)
+    //                 .getInt("ButtonOffsetY", 0);
+    //
+    //         buttonOffsetXCreative = builder
+    //                 .comment("Allows to set offset for Magnet Effects button on X axis, for creative inventory specifically.")
+    //                 .minMax(32768)
+    //                 .getInt("ButtonOffsetXCreative", 0);
+    //
+    //         buttonOffsetYCreative = builder
+    //                 .comment("Allows to set offset for Magnet Effects button on Y axis, for creative inventory specifically.")
+    //                 .minMax(32768)
+    //                 .getInt("ButtonOffsetYCreative", 0);
+    //
     //     }
+    //
+    //     builder.popPrefix();
     // }
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
-        if (stack.getHolder().isSneaking()) {
-            ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.magnetRing1", Formatting.GOLD, range.getValue());
-            ItemLoreHelper.addLocalizedString(tooltip, invertShift.getValue() ? "tooltip.enigmaticlegacy.magnetRing2_alt" : "tooltip.enigmaticlegacy.magnetRing2");
+        if (ItemHelper.isShiftHeldOnStack(stack)) {
+            ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.magnetRing1", Formatting.GOLD, range);
+            ItemLoreHelper.addLocalizedString(tooltip, invertShift ? "tooltip.enigmaticlegacy.magnetRing2_alt" : "tooltip.enigmaticlegacy.magnetRing2");
         } else {
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.holdShift");
         }
@@ -59,7 +83,7 @@ public class MagnetRing extends TrinketItem {
 
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if ((invertShift.getValue() != entity.isSneaking()) || !(entity instanceof PlayerEntity))
+        if ((invertShift != entity.isSneaking()) || !(entity instanceof PlayerEntity))
             return;
 
         if (this.hasMagnetEffectsDisabled((PlayerEntity) entity))
@@ -71,8 +95,8 @@ public class MagnetRing extends TrinketItem {
 
         //.getEntitiesOfClass(ItemEntity.class, new AABB(x - range.getValue(), y - range.getValue(), z - range.getValue(), x + range.getValue(), y + range.getValue(), z + range.getValue()));
         List<ItemEntity> items = entity.getWorld().getEntitiesByClass(ItemEntity.class,
-                new Box(x - range.getValue(), y - range.getValue(), z - range.getValue(), x + range.getValue(), y + range.getValue(), z + range.getValue()),
-                itemEntity -> false);
+                new Box(x - range, y - range, z - range, x + range, y + range, z + range),
+                itemEntity -> true);
         int pulled = 0;
         for (ItemEntity item : items)
             if (this.canPullItem(item)) {
@@ -80,11 +104,11 @@ public class MagnetRing extends TrinketItem {
                     break;
                 }
 
-                if (!SuperpositionHandler.canPickStack((PlayerEntity) entity, item.getStack())) {
+                if (!ItemHelper.canPickStack((PlayerEntity) entity, item.getStack())) {
                     continue;
                 }
 
-                SuperpositionHandler.setEntityMotionFromVector(item, new Vec3d(x, y, z), 0.45F);
+                EntityHelper.setEntityMotionFromVector(item, new Vec3d(x, y, z), 0.45F);
                 item.setPickupDelay(0);
 
                 //for (int counter = 0; counter <= 2; counter++)
@@ -96,18 +120,19 @@ public class MagnetRing extends TrinketItem {
 
     @Override
     public boolean canEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        return super.canEquip(stack, slot, entity) && !SuperpositionHandler.hasTrinket(entity, EnigmaticItems.SUPER_MAGNET_RING);
+        return super.canEquip(stack, slot, entity) && !ItemHelper.hasItemEquipped(entity, EnigmaticItems.SUPER_MAGNET_RING);
     }
 
     public boolean hasMagnetEffectsDisabled(PlayerEntity player) {
-        return TransientPlayerData.get(player).getDisabledMagnetRingEffects();
+        // TODO fix this once the config is up
+        // return TransientPlayerData.get(player).getDisabledMagnetRingEffects();
+        return false;
     }
 
     protected boolean canPullItem(ItemEntity item) {
         ItemStack stack = item.getStack();
         if (!item.isAlive() || stack.isEmpty()) // TODO this if-statement needs a fabric version of this bit: ' || item.getPersistentData().getBoolean("PreventRemoteMovement")'
             return false;
-
         return true;
     }
 
