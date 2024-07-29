@@ -5,6 +5,8 @@ import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import dev.emi.trinkets.api.SlotReference;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -42,6 +44,7 @@ public class SuperMagnetRing extends MagnetRing {
     // }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
         if (Screen.hasShiftDown()) {

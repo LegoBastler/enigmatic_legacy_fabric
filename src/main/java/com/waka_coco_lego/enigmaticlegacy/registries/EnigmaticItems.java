@@ -27,7 +27,7 @@ public class EnigmaticItems {
     public static final Item THICC_SCROLL = registerItem("thicc_scroll", new ThiccScroll(new Item.Settings().maxCount(16)));
     public static final Item EVIL_ESSENCE = registerItem("evil_essence", new EvilEssence(new Item.Settings().rarity(Rarity.EPIC).maxCount(8).fireproof()));
     public static final Item EVIL_INGOT = registerItem("evil_ingot", new EvilIngot(new Item.Settings().rarity(Rarity.EPIC).maxCount(8).fireproof()));
-
+    public static final Item ENDER_RING = registerItem("ender_ring", new EnderRing(new Item.Settings().rarity(Rarity.UNCOMMON)));
 
     public static final Item ENDER_ROD = registerItem("ender_rod", new EnderRod(new Item.Settings()));
     public static final Item ETHERIUM_ORE = registerItem("etherium_ore", new EtheriumOre(new Item.Settings().fireproof()));
@@ -47,6 +47,13 @@ public class EnigmaticItems {
                         entries.add(THICC_SCROLL);
                         entries.add(EVIL_ESSENCE);
                         entries.add(EVIL_INGOT);
+                        entries.add(ENDER_RING);
+
+                        entries.add(ENDER_ROD);
+                        entries.add(ETHERIUM_INGOT);
+                        entries.add(ETHERIUM_NUGGET);
+                        entries.add(ETHERIUM_ORE);
+                        entries.add(ETHERIUM_SCRAPS);
                     }).build());
 
 
