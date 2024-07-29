@@ -22,6 +22,13 @@ public class EnigmaticItems {
     public static final Item IRONRING = registerItem("iron_ring", new IronRing(new Item.Settings().maxCount(1)));
     public static final Item MAGNET_RING = registerItem("magnet_ring", new MagnetRing(new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item SUPER_MAGNET_RING = registerItem("super_magnet_ring", new SuperMagnetRing(new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+    public static final Item ASTRAL_DUST = registerItem("astral_dust", new AstralDust(new Item.Settings().rarity(Rarity.EPIC)));
+    public static final Item THICC_SCROLL = registerItem("thicc_scroll", new ThiccScroll(new Item.Settings().maxCount(16)));
+    public static final Item EVIL_ESSENCE = registerItem("evil_essence", new EvilEssence(new Item.Settings().rarity(Rarity.EPIC).maxCount(8).fireproof()));
+    public static final Item EVIL_INGOT = registerItem("evil_ingot", new EvilIngot(new Item.Settings().rarity(Rarity.EPIC).maxCount(8).fireproof()));
+    public static final Item ENDER_ROD = registerItem("ender_rod", new EnderRod(new Item.Settings()));
+
+
 
     public static final ItemGroup ENIGMATICGROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.tryParse(MODID, "enigmatic_group"),
@@ -30,6 +37,11 @@ public class EnigmaticItems {
                         entries.add(IRONRING);
                         entries.add(MAGNET_RING);
                         entries.add(SUPER_MAGNET_RING);
+                        entries.add(ASTRAL_DUST);
+                        entries.add(THICC_SCROLL);
+                        entries.add(EVIL_ESSENCE);
+                        entries.add(EVIL_INGOT);
+                        entries.add(ENDER_ROD);
                     }).build());
 
 

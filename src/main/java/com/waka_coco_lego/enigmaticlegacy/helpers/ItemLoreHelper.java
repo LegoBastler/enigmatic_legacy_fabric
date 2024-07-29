@@ -1,5 +1,7 @@
 package com.waka_coco_lego.enigmaticlegacy.helpers;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -9,16 +11,19 @@ import java.util.List;
 
 public class ItemLoreHelper {
 
-    // public static void indicateCursedOnesOnly(List<Text> list) {
-    //     Formatting format;
-    //     if (Minecraft.getInstance().player != null) {
-    //         format = SuperpositionHandler.isTheCursedOne(Minecraft.getInstance().player) ? Formatting.GOLD : Formatting.DARK_RED;
-    //     } else {
-    //         format = Formatting.DARK_RED;
-    //     }
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.cursedOnesOnly1").formatted(format));
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.cursedOnesOnly2").formatted(format));
-    // }
+    // TODO fix this once the Cursing System is up
+    public static void indicateCursedOnesOnly(ItemStack stack, List<Text> list) {
+        Formatting format;
+        Entity holder = stack.getHolder();
+        // if (holder != null) {
+        //     format = SuperpositionHandler.isTheCursedOne(Minecraft.getInstance().player) ? Formatting.GOLD : Formatting.DARK_RED;
+        // } else {
+        //     format = Formatting.DARK_RED;
+        // }
+        format = Formatting.DARK_RED;
+        list.add(Text.translatable("tooltip.enigmaticlegacy.cursedOnesOnly1").formatted(format));
+        list.add(Text.translatable("tooltip.enigmaticlegacy.cursedOnesOnly2").formatted(format));
+    }
 
     // public static void indicateWorthyOnesOnly(List<Text> list) {
     //     Formatting format = Formatting.DARK_RED;
