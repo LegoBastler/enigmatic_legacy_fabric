@@ -28,8 +28,6 @@ repositories {
 }
 
 loom {
-	splitEnvironmentSourceSets()
-
 	mods {
 		"enigmatic_legacy_fabric" {
 			sourceSet sourceSets.main

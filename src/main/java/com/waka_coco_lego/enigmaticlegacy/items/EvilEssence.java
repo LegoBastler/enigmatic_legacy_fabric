@@ -3,6 +3,7 @@ package com.waka_coco_lego.enigmaticlegacy.items;
 import com.waka_coco_lego.enigmaticlegacy.api.items.ICursed;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -23,7 +24,7 @@ public class EvilEssence extends Item implements ICursed {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        if (ItemHelper.isShiftHeldOnStack(stack)) {
+        if (Screen.hasShiftDown()) {
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.evilEssence1");
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.evilEssence2");
         } else {

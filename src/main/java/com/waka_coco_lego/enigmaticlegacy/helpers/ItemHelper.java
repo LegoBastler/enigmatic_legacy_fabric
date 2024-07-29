@@ -1,5 +1,6 @@
 package com.waka_coco_lego.enigmaticlegacy.helpers;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,11 +38,6 @@ public class ItemHelper {
         }
 
         return false;
-    }
-
-    public static boolean isShiftHeldOnStack(ItemStack stack) {
-        // TODO change this to actually check for shift, because checking for sneaking is pretty much impossible while in a menu
-        return true;
     }
 
     public static boolean canMergeStacks(ItemStack stack1, ItemStack stack2, int invStackLimit) {

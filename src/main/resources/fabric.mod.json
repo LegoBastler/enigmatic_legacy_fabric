@@ -2,18 +2,19 @@
 	"schemaVersion": 1,
 	"id": "enigmatic_legacy_fabric",
 	"version": "${version}",
-	"name": "enigmatic_legacy_fabric",
+	"name": "Enigmatic Legacy",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
+		"Aizistral Studios",
 		"LegoBastler",
 		"Cocogoat473",
 		"Wakaranai266"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/LegoBastler/enigmatic_legacy_fabric",
+		"sources": "https://github.com/Aizistral-Studios/Enigmatic-Legacy"
 	},
-	"license": "CC0-1.0",
+	"license": "Enigmatic Legacy License, II Edition",
 	"icon": "assets/EL_logo.png",
 	"environment": "*",
 	"entrypoints": {

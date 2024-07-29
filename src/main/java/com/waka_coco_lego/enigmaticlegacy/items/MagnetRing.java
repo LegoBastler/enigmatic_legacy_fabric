@@ -8,6 +8,7 @@ import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import com.waka_coco_lego.omniconfig.wrappers.Omniconfig;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -73,7 +74,7 @@ public class MagnetRing extends TrinketItem {
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
-        if (ItemHelper.isShiftHeldOnStack(stack)) {
+        if (Screen.hasShiftDown()) {
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.magnetRing1", Formatting.GOLD, range);
             ItemLoreHelper.addLocalizedString(tooltip, invertShift ? "tooltip.enigmaticlegacy.magnetRing2_alt" : "tooltip.enigmaticlegacy.magnetRing2");
         } else {
