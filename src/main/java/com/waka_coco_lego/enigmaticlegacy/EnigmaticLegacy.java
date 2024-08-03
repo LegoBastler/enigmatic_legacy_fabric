@@ -1,8 +1,19 @@
 package com.waka_coco_lego.enigmaticlegacy;
 
+import com.waka_coco_lego.enigmaticlegacy.networking.payloads.EnderRingPayload;
+import com.waka_coco_lego.enigmaticlegacy.networking.payloads.KeyBindResetPayload;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.entity.EnderChestBlockEntity;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,20 +27,28 @@ public class EnigmaticLegacy implements ModInitializer {
 	public void onInitialize() {
 		EnigmaticItems.registerModItems();
 
-		onLoadComplete();
+		registerS2C();
+		registerC2S();
+		registerGlobalServerReceiver();
 	}
 
-	public void onLoadComplete() {
-		LOGGER.info("Initializing load completion phase...");
+	private void registerS2C() {
+		PayloadTypeRegistry.playS2C().register(KeyBindResetPayload.ID, KeyBindResetPayload.CODEC);
+	}
 
-		// TODO add Spellstones to this List here
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.ANGEL_BLESSING);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.GOLEM_HEART);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.OCEAN_STONE);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.BLAZING_CORE);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.EYE_OF_NEBULA);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.VOID_PEARL);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.THE_CUBE);
-		// EnigmaticItems.SPELLSTONES.add(EnigmaticItems.ENIGMATIC_ITEM);
+	private void registerC2S() {
+		PayloadTypeRegistry.playC2S().register(EnderRingPayload.ID, EnderRingPayload.CODEC);
+	}
+
+	private void registerGlobalServerReceiver() {
+		ServerPlayNetworking.registerGlobalReceiver(EnderRingPayload.ID, (payload, context) -> {
+			context.server().execute(() -> {
+				ServerPlayerEntity player = context.player();
+				player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
+					return GenericContainerScreenHandler.createGeneric9x3(i, playerInventory, player.getEnderChestInventory());
+				}, Text.translatable("container.enderchest")));
+				ServerPlayNetworking.send(player, new KeyBindResetPayload("i"));
+			});
+		});
 	}
 }

@@ -35,9 +35,18 @@ public class EnigmaticItems {
     public static final Item ETHERIUM_NUGGET = registerItem("etherium_nugget", new EtheriumNugget(new Item.Settings().fireproof()));
     public static final Item ETHERIUM_SCRAPS = registerItem("etherium_scraps", new EtheriumScraps(new Item.Settings().fireproof())); // Scraps aren't actually fireproof in the orig Mod, but it just makes more sense this way
 
+    // TODO add Spellstones to this List here
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.ANGEL_BLESSING);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.GOLEM_HEART);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.OCEAN_STONE);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.BLAZING_CORE);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.EYE_OF_NEBULA);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.VOID_PEARL);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.THE_CUBE);
+    // EnigmaticItems.SPELLSTONES.add(EnigmaticItems.ENIGMATIC_ITEM);
 
     public static final ItemGroup ENIGMATICLEGACY_GROUP = Registry.register(Registries.ITEM_GROUP,
-            Identifier.tryParse(MODID, "enigmatic_group"),
+            Identifier.of(MODID, "enigmatic_group"),
             FabricItemGroup.builder().displayName(Text.translatable("itemGroup.enigmaticCreativeTab"))
                     .icon(() -> new ItemStack(IRON_RING)).entries((displayContext, entries) -> {
                         entries.add(IRON_RING);
@@ -58,7 +67,7 @@ public class EnigmaticItems {
 
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, Identifier.tryParse(MODID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(MODID, name), item);
     }
 
     public static void registerModItems() {

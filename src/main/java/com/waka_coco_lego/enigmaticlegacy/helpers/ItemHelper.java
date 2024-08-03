@@ -1,24 +1,22 @@
 package com.waka_coco_lego.enigmaticlegacy.helpers;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.Entity;
+import dev.emi.trinkets.api.SlotGroup;
+import dev.emi.trinkets.api.TrinketComponent;
+import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ItemHelper {
 
     public static boolean hasItemEquipped(LivingEntity entity, Item checkedItem) {
-        boolean hasEquipped = false;
-        for (ItemStack item : entity.getEquippedItems()) {
-            if (item.isOf(checkedItem)) hasEquipped = true;
-        }
-        return hasEquipped;
+        Optional<TrinketComponent> optional = TrinketsApi.getTrinketComponent(entity);
+        // return optional.isPresent() ? optional.get().isEquipped(checkedItem) : false;
+        // I really don't know how the code below is simpler than the code above
+        return optional.map(trinketComponent -> trinketComponent.isEquipped(checkedItem)).orElse(false);
     }
 
     public static boolean canPickStack(PlayerEntity player, ItemStack stack) {

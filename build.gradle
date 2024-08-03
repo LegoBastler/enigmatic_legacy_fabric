@@ -28,6 +28,11 @@ repositories {
 }
 
 loom {
+	runs {
+		client {
+			vmArgs "-Xmx6G"
+		}
+	}
 	mods {
 		"enigmatic_legacy_fabric" {
 			sourceSet sourceSets.main
