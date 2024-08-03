@@ -7,9 +7,14 @@ import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.KeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 public class EnigmaticLegacyClient implements ClientModInitializer {
@@ -40,6 +45,23 @@ public class EnigmaticLegacyClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(KeyBindResetPayload.ID, (payload, context) -> {
 			if (payload.bind().equals("i")) isEnderRingBindPressable = true;
+		});
+
+		// TODO actually use the given sprite instead of this funny thing and try to make it disappear if the ring isn't equipped
+		ScreenEvents.AFTER_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
+			if (screen instanceof InventoryScreen) {
+				Screens.getButtons(screen).add(
+						new ButtonWidget.Builder(Text.literal("EC"),
+								action -> {
+									if (ItemHelper.hasItemEquipped(client.player, EnigmaticItems.ENDER_RING))
+										ClientPlayNetworking.send(new EnderRingPayload(true));
+									else client.player.sendMessage(Text.literal("Ring of Ender not equipped!"));
+								})
+								.size(scaledWidth / 20, scaledHeight / 20)
+								.position(scaledWidth / 10 * 6, scaledHeight / 12 * 5)
+								.build()
+				);
+			}
 		});
 	}
 
