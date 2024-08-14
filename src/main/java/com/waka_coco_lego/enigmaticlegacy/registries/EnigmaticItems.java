@@ -28,6 +28,7 @@ public class EnigmaticItems {
     public static final Item EVIL_ESSENCE = registerItem("evil_essence", new EvilEssence(new Item.Settings().rarity(Rarity.EPIC).maxCount(8).fireproof()));
     public static final Item EVIL_INGOT = registerItem("evil_ingot", new EvilIngot(new Item.Settings().rarity(Rarity.EPIC).maxCount(8).fireproof()));
     public static final Item ENDER_RING = registerItem("ender_ring", new EnderRing(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item MINING_CHARM = registerItem("mining_charm", new MiningCharm(new Item.Settings().rarity(Rarity.RARE)));
 
     public static final Item ENDER_ROD = registerItem("ender_rod", new EnderRod(new Item.Settings()));
     public static final Item ETHERIUM_ORE = registerItem("etherium_ore", new EtheriumOre(new Item.Settings().fireproof()));
@@ -57,6 +58,7 @@ public class EnigmaticItems {
                         entries.add(EVIL_ESSENCE);
                         entries.add(EVIL_INGOT);
                         entries.add(ENDER_RING);
+                        entries.add(MINING_CHARM);
 
                         entries.add(ENDER_ROD);
                         entries.add(ETHERIUM_INGOT);

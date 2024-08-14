@@ -2,6 +2,7 @@ package com.waka_coco_lego.enigmaticlegacy;
 
 import com.waka_coco_lego.enigmaticlegacy.networking.payloads.EnderRingPayload;
 import com.waka_coco_lego.enigmaticlegacy.networking.payloads.KeyBindResetPayload;
+import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticComponents;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -25,6 +26,7 @@ public class EnigmaticLegacy implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		EnigmaticComponents.registerComponents();
 		EnigmaticItems.registerModItems();
 
 		registerS2C();

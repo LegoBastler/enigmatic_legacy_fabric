@@ -140,4 +140,9 @@ public class MagnetRing extends TrinketItem {
         return true;
     }
 
+    @Override
+    public boolean canEquipFromUse(ItemStack stack, LivingEntity entity) {
+        return true;
+    }
+
 }

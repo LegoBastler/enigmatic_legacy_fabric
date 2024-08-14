@@ -40,4 +40,10 @@ public class EnderRing extends TrinketItem {
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.currentKeybind", Formatting.LIGHT_PURPLE, EnigmaticLegacyClient.EnderRingBind.getBoundKeyLocalizedText());
     }
+
+    @Override
+    public boolean canEquipFromUse(ItemStack stack, LivingEntity entity) {
+        return true;
+    }
+
 }

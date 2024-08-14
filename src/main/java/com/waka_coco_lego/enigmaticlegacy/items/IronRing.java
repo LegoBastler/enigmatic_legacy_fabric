@@ -21,4 +21,10 @@ public class IronRing extends TrinketItem {
         modifiers.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(slotIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE));
         return modifiers;
     }
+
+    @Override
+    public boolean canEquipFromUse(ItemStack stack, LivingEntity entity) {
+        return true;
+    }
+
 }
