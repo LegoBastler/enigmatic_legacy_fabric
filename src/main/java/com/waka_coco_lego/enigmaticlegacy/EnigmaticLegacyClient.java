@@ -1,8 +1,9 @@
 package com.waka_coco_lego.enigmaticlegacy;
 
-import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
+import com.waka_coco_lego.enigmaticlegacy.helpers.SuperpositionHelper;
 import com.waka_coco_lego.enigmaticlegacy.networking.payloads.EnderRingPayload;
 import com.waka_coco_lego.enigmaticlegacy.networking.payloads.KeyBindResetPayload;
+import com.waka_coco_lego.enigmaticlegacy.networking.payloads.MagnetTogglePayload;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -37,7 +38,8 @@ public class EnigmaticLegacyClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (EnderRingBind.isPressed() && isEnderRingBindPressable
 					&& client.player.currentScreenHandler == client.player.playerScreenHandler
-					&& ItemHelper.hasItemEquipped(client.player, EnigmaticItems.ENDER_RING)) {
+					&& (SuperpositionHelper.hasItemEquipped(client.player, EnigmaticItems.ENDER_RING)
+						|| SuperpositionHelper.hasItemEquipped(client.player, EnigmaticItems.CURSED_RING))) {
 				ClientPlayNetworking.send(new EnderRingPayload(true));
 				isEnderRingBindPressable = false;
             }
@@ -53,12 +55,25 @@ public class EnigmaticLegacyClient implements ClientModInitializer {
 				Screens.getButtons(screen).add(
 						new ButtonWidget.Builder(Text.literal("EC"),
 								action -> {
-									if (ItemHelper.hasItemEquipped(client.player, EnigmaticItems.ENDER_RING))
+									if (SuperpositionHelper.hasItemEquipped(client.player, EnigmaticItems.ENDER_RING)
+											|| SuperpositionHelper.hasItemEquipped(client.player, EnigmaticItems.CURSED_RING))
 										ClientPlayNetworking.send(new EnderRingPayload(true));
 									else client.player.sendMessage(Text.literal("Ring of Ender not equipped!"));
 								})
 								.size(scaledWidth / 20, scaledHeight / 20)
-								.position(scaledWidth / 10 * 6, scaledHeight / 12 * 5)
+								.position(scaledWidth / 2 - 40, scaledHeight / 12 * 3)
+								.build()
+				);
+				Screens.getButtons(screen).add(
+						new ButtonWidget.Builder(Text.literal("toggle"),
+								action -> {
+									if (SuperpositionHelper.hasItemEquipped(client.player, EnigmaticItems.MAGNET_RING)
+										|| SuperpositionHelper.hasItemEquipped(client.player, EnigmaticItems.SUPER_MAGNET_RING))
+										ClientPlayNetworking.send(new MagnetTogglePayload(true));
+									else client.player.sendMessage(Text.literal("Magnet Ring / Dislocation Ring not equipped!"));
+								})
+								.size(scaledWidth / 20, scaledHeight / 20)
+								.position(scaledWidth / 2 + 10, scaledHeight / 12 * 3)
 								.build()
 				);
 			}

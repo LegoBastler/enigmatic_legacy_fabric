@@ -231,6 +231,8 @@
 	"trinkets.slot.chest.charm": "Charm",
 	"curios.modifiers.spellstone": "When equipped as Spellstone:",
 	"curios.modifiers.scroll": "When equipped as Arcane Scroll:",
+	"trinkets.slot.legs.scrolls": "Arcane Scroll",
+	"trinkets.slot.legs.spellstone": "Spellstone",
 	"tooltip.enigmaticlegacy.enabled": "§6Enabled",
 	"tooltip.enigmaticlegacy.disabled": "§6Disabled",
 	"generic.reachDistance": "Reach Distance",

@@ -1,7 +1,7 @@
 package com.waka_coco_lego.enigmaticlegacy.items;
 
 import com.google.common.collect.Multimap;
-import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
+import com.waka_coco_lego.enigmaticlegacy.helpers.SuperpositionHelper;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticComponents;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
@@ -22,7 +22,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -77,10 +76,10 @@ public class MiningCharm extends TrinketItem {
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
 
         if (Screen.hasShiftDown()) {
-            ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.miningCharm1", Formatting.GOLD, breakSpeedBonus + "%");
+            // ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.miningCharm1", Formatting.GOLD, breakSpeedBonus + "%");
             // TODO remove this comment once Fortune works (it wont)
             // ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.miningCharm2", Formatting.GOLD, 1);
-            ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
+            // ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.miningCharm3");
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.miningCharm4");
             ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.miningCharm5");
@@ -120,7 +119,7 @@ public class MiningCharm extends TrinketItem {
     @Override
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (entity instanceof PlayerEntity player && !entity.getWorld().isClient()) {
-            if (ItemHelper.hasItemEquipped(player, EnigmaticItems.MINING_CHARM)) {
+            if (SuperpositionHelper.hasItemEquipped(player, EnigmaticItems.MINING_CHARM)) {
                 if (Boolean.TRUE.equals(stack.get(EnigmaticComponents.IS_ACTIVATED_COMPONENT))) {
                     if (enableNightVision) {
                         if (player.getY() < 50 && !player.getWorld().getRegistryKey().equals(World.NETHER)

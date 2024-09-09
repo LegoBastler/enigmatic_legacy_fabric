@@ -1,7 +1,6 @@
 package com.waka_coco_lego.enigmaticlegacy.items;
 
-import com.waka_coco_lego.enigmaticlegacy.helpers.EntityHelper;
-import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
+import com.waka_coco_lego.enigmaticlegacy.helpers.SuperpositionHelper;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
 import dev.emi.trinkets.api.SlotReference;
@@ -78,7 +77,7 @@ public class SuperMagnetRing extends MagnetRing {
                     break;
                 }
 
-                if (!ItemHelper.canPickStack((PlayerEntity) entity, item.getStack())) {
+                if (!SuperpositionHelper.canPickStack((PlayerEntity) entity, item.getStack())) {
                     break;
                 }
 
@@ -86,7 +85,7 @@ public class SuperMagnetRing extends MagnetRing {
 				// 	item.world.playSound(null, item.getPosition(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, (float) (0.8F + (Math.random() * 0.2D)));
 
                 item.setPickupDelay(0);
-                EntityHelper.playerTouch((PlayerEntity) entity, item);
+                SuperpositionHelper.playerTouch((PlayerEntity) entity, item);
                 pulled++;
             }
 
@@ -94,7 +93,7 @@ public class SuperMagnetRing extends MagnetRing {
 
     @Override
     public boolean canEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        return super.canEquip(stack, slot, entity) && !ItemHelper.hasItemEquipped(entity, EnigmaticItems.MAGNET_RING);
+        return super.canEquip(stack, slot, entity) && !SuperpositionHelper.hasItemEquipped(entity, EnigmaticItems.MAGNET_RING);
     }
 
     @Override

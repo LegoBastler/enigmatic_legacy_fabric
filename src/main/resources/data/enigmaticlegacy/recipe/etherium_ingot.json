@@ -3,7 +3,9 @@
   "ingredient": {
     "item": "enigmaticlegacy:etherium_ore"
   },
-  "result": "enigmaticlegacy:etherium_ingot",
+  "result": {
+    "id": "enigmaticlegacy:etherium_ingot"
+  },
   "experience": 8.0,
   "cookingtime": 400
 }

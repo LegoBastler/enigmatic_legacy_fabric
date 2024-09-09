@@ -11,7 +11,12 @@ public class EnigmaticComponents {
 
     public static final ComponentType<Boolean> IS_ACTIVATED_COMPONENT = Registry.register(
             Registries.DATA_COMPONENT_TYPE,
-            Identifier.of(EnigmaticLegacy.MODID, "my_component"),
+            Identifier.of(EnigmaticLegacy.MODID, "is_activated_component"),
+            ComponentType.<Boolean>builder().codec(Codec.BOOL).build()
+    );
+    public static final ComponentType<Boolean> IS_TAINTED_COMPONENT = Registry.register(
+            Registries.DATA_COMPONENT_TYPE,
+            Identifier.of(EnigmaticLegacy.MODID, "is_tainted_component"),
             ComponentType.<Boolean>builder().codec(Codec.BOOL).build()
     );
 

@@ -5,16 +5,16 @@ import net.minecraft.util.Identifier;
 
 public class EnigmaticSounds {
 
-    public static final Identifier CHARGED_ON_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier CHARGED_OFF_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier SHIELD_TRIGGER_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier DEFLECT_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier WRITE_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier LEARN_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier SWORD_HIT_REJECT_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier EAT_REVERSE_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier PAN_CLANG_ID = Identifier.of("tutorial:my_sound");
-    public static final Identifier PAN_CLANG_FR_ID = Identifier.of("tutorial:my_sound");
+    public static final Identifier CHARGED_ON_ID = Identifier.of("enigmaticlegacy:misc.hhon");
+    public static final Identifier CHARGED_OFF_ID = Identifier.of("enigmaticlegacy:misc.hhoff");
+    public static final Identifier SHIELD_TRIGGER_ID = Identifier.of("enigmaticlegacy:misc.shield_trigger");
+    public static final Identifier DEFLECT_ID = Identifier.of("enigmaticlegacy:misc.deflect");
+    public static final Identifier WRITE_ID = Identifier.of("enigmaticlegacy:misc.write");
+    public static final Identifier LEARN_ID = Identifier.of("enigmaticlegacy:misc.learn");
+    public static final Identifier SWORD_HIT_REJECT_ID = Identifier.of("enigmaticlegacy:misc.sword_hit_reject");
+    public static final Identifier EAT_REVERSE_ID = Identifier.of("enigmaticlegacy:misc.uneat");
+    public static final Identifier PAN_CLANG_ID = Identifier.of("enigmaticlegacy:misc.pan_clang");
+    public static final Identifier PAN_CLANG_FR_ID = Identifier.of("enigmaticlegacy:misc.pan_clang_fr");
 
     public static SoundEvent CHARGED_ON = SoundEvent.of(CHARGED_ON_ID);
     public static SoundEvent CHARGED_OFF = SoundEvent.of(CHARGED_OFF_ID);

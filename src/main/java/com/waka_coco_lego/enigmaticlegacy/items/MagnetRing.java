@@ -1,11 +1,9 @@
 package com.waka_coco_lego.enigmaticlegacy.items;
 
-import com.waka_coco_lego.enigmaticlegacy.helpers.EntityHelper;
-import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
+import com.waka_coco_lego.enigmaticlegacy.api.StateSaverAndLoader;
+import com.waka_coco_lego.enigmaticlegacy.helpers.SuperpositionHelper;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
-import com.waka_coco_lego.enigmaticlegacy.objects.TransientPlayerData;
 import com.waka_coco_lego.enigmaticlegacy.registries.EnigmaticItems;
-import com.waka_coco_lego.omniconfig.wrappers.Omniconfig;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import net.fabricmc.api.EnvType;
@@ -108,11 +106,11 @@ public class MagnetRing extends TrinketItem {
                     break;
                 }
 
-                if (!ItemHelper.canPickStack((PlayerEntity) entity, item.getStack())) {
+                if (!SuperpositionHelper.canPickStack((PlayerEntity) entity, item.getStack())) {
                     continue;
                 }
 
-                EntityHelper.setEntityMotionFromVector(item, new Vec3d(x, y, z), 0.45F);
+                SuperpositionHelper.setEntityMotionFromVector(item, new Vec3d(x, y, z), 0.45F);
                 item.setPickupDelay(0);
 
                 //for (int counter = 0; counter <= 2; counter++)
@@ -124,13 +122,11 @@ public class MagnetRing extends TrinketItem {
 
     @Override
     public boolean canEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        return super.canEquip(stack, slot, entity) && !ItemHelper.hasItemEquipped(entity, EnigmaticItems.SUPER_MAGNET_RING);
+        return super.canEquip(stack, slot, entity) && !SuperpositionHelper.hasItemEquipped(entity, EnigmaticItems.SUPER_MAGNET_RING);
     }
 
     public boolean hasMagnetEffectsDisabled(PlayerEntity player) {
-        // TODO fix this once the config is up
-        // return TransientPlayerData.get(player).getDisabledMagnetRingEffects();
-        return false;
+        return StateSaverAndLoader.getPlayerState(player).hasMagnetEffectsDisabled;
     }
 
     protected boolean canPullItem(ItemEntity item) {

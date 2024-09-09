@@ -1,9 +1,9 @@
 package com.waka_coco_lego.enigmaticlegacy.items;
 
 import com.waka_coco_lego.enigmaticlegacy.api.items.ICursed;
-import com.waka_coco_lego.enigmaticlegacy.helpers.ItemHelper;
 import com.waka_coco_lego.enigmaticlegacy.helpers.ItemLoreHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -32,6 +32,6 @@ public class EvilEssence extends Item implements ICursed {
         }
 
         ItemLoreHelper.addLocalizedString(tooltip, "tooltip.enigmaticlegacy.void");
-        ItemLoreHelper.indicateCursedOnesOnly(stack, tooltip);
+        ItemLoreHelper.indicateCursedOnesOnly(tooltip);
     }
 }

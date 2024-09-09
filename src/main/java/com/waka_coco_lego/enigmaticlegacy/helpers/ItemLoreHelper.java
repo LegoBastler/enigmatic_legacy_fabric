@@ -1,6 +1,11 @@
 package com.waka_coco_lego.enigmaticlegacy.helpers;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -12,42 +17,45 @@ import java.util.List;
 public class ItemLoreHelper {
 
     // TODO fix this once the Cursing System is up
-    public static void indicateCursedOnesOnly(ItemStack stack, List<Text> list) {
+    @Environment(EnvType.CLIENT)
+    public static void indicateCursedOnesOnly(List<Text> list) {
         Formatting format;
-        Entity holder = stack.getHolder();
-        // if (holder != null) {
-        //     format = SuperpositionHandler.isTheCursedOne(Minecraft.getInstance().player) ? Formatting.GOLD : Formatting.DARK_RED;
-        // } else {
-        //     format = Formatting.DARK_RED;
-        // }
-        format = Formatting.DARK_RED;
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (player != null) {
+            format = SuperpositionHelper.isTheCursedOne(player) ? Formatting.GOLD : Formatting.DARK_RED;
+        } else {
+            format = Formatting.DARK_RED;
+        }
+
         list.add(Text.translatable("tooltip.enigmaticlegacy.cursedOnesOnly1").formatted(format));
         list.add(Text.translatable("tooltip.enigmaticlegacy.cursedOnesOnly2").formatted(format));
     }
 
-    // public static void indicateWorthyOnesOnly(List<Text> list) {
-    //     Formatting format = Formatting.DARK_RED;
-    //     Player player = Minecraft.getInstance().player;
-    //     if (player != null) {
-    //         format = SuperpositionHandler.isTheWorthyOne(Minecraft.getInstance().player) ? Formatting.GOLD : Formatting.DARK_RED;
-    //     }
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly1"));
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly2"));
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly3"));
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.void"));
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly4").formatted(format).append(Text.literal(" " + SuperpositionHandler.getSufferingTime(player)).withStyle(Formatting.LIGHT_PURPLE)));
-    // }
+    @Environment(EnvType.CLIENT)
+    public static void indicateWorthyOnesOnly(List<Text> list) {
+        Formatting format = Formatting.DARK_RED;
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (player != null) {
+            format = SuperpositionHelper.isTheWorthyOne(player) ? Formatting.GOLD : Formatting.DARK_RED;
+        }
+        list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly1"));
+        list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly2"));
+        list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly3"));
+        list.add(Text.translatable("tooltip.enigmaticlegacy.void"));
+        list.add(Text.translatable("tooltip.enigmaticlegacy.worthyOnesOnly4").formatted(format).append(Text.literal(" " + SuperpositionHelper.getSufferingTime(player)).formatted(Formatting.LIGHT_PURPLE)));
+    }
 
-    // public static void indicateBlessedOnesOnly(List<Text> list) {
-    //     Formatting format;
-    //     if (EnigmaticLegacy.PROXY.getClientPlayer() != null) {
-    //         format = SuperpositionHandler.isTheBlessedOne(EnigmaticLegacy.PROXY.getClientPlayer()) ? Formatting.GOLD : Formatting.DARK_RED;
-    //     } else {
-    //         format = Formatting.DARK_RED;
-    //     }
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.blessedOnesOnly1").formatted(format));
-    //     list.add(Text.translatable("tooltip.enigmaticlegacy.blessedOnesOnly2").formatted(format));
-    // }
+    public static void indicateBlessedOnesOnly(List<Text> list) {
+        Formatting format;
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (player != null) {
+            format = SuperpositionHelper.isTheBlessedOne(player) ? Formatting.GOLD : Formatting.DARK_RED;
+        } else {
+            format = Formatting.DARK_RED;
+        }
+        list.add(Text.translatable("tooltip.enigmaticlegacy.blessedOnesOnly1").formatted(format));
+        list.add(Text.translatable("tooltip.enigmaticlegacy.blessedOnesOnly2").formatted(format));
+    }
 
     public static void addLocalizedFormattedString(List<Text> list, String str, Formatting format) {
         list.add(Text.translatable(str).formatted(format));
